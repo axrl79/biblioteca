@@ -1,15 +1,17 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
-  title: 'Biblioteca Virtual - 9 Semestres',
-  description: 'Biblioteca virtual con acceso a documentos organizados por semestres de Ingeniería Civil',
-  generator: 'v0.app',
+  title: 'El Blog del Ingeniero — Ing. Luis Pacosillo Ticona',
+  description: 'El Blog del Ingeniero — Documentos de Ingeniería Civil organizados por semestres. Ing. Luis Pacosillo Ticona.',
   icons: {
     icon: [
       {
@@ -35,7 +37,7 @@ export const viewport: Viewport = {
   maximumScale: 5,
   userScalable: true,
   viewportFit: 'cover',
-  themeColor: '#297e1d',
+  themeColor: '#059669',
 }
 
 export default function RootLayout({
@@ -44,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" className="bg-background">
+    <html lang="es" className={`bg-background ${inter.variable}`}>
       <body className="font-sans antialiased bg-background">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

@@ -1,124 +1,93 @@
 'use client';
 
-import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { FileExplorer } from './FileExplorer';
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaGraduationCap, FaFolder } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import { FaGraduationCap } from 'react-icons/fa';
+import { ChevronRight } from 'lucide-react';
 
 interface SemestreCardProps {
   semesterId: string;
   semesterName: string;
   semesterNumber: number;
   color: string;
+  onClick: () => void;
 }
 
+const SEMESTER_GRADIENTS: Record<number, string> = {
+  1: 'from-emerald-500 to-green-600',
+  2: 'from-blue-500 to-indigo-600',
+  3: 'from-violet-500 to-purple-600',
+  4: 'from-amber-500 to-orange-600',
+  5: 'from-rose-500 to-pink-600',
+  6: 'from-cyan-500 to-teal-600',
+  7: 'from-lime-500 to-green-600',
+  8: 'from-fuchsia-500 to-purple-600',
+  9: 'from-sky-500 to-blue-600',
+};
+
 export function SemestreCard({
-  semesterId,
   semesterName,
   semesterNumber,
   color,
+  onClick,
 }: SemestreCardProps) {
-  const [expanded, setExpanded] = useState(false);
+  const gradient = SEMESTER_GRADIENTS[semesterNumber] || 'from-green-500 to-emerald-600';
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3 }}
-      whileHover={{ scale: 1.02, y: -4 }}
+    <motion.button
+      onClick={onClick}
+      className="group relative w-full text-left rounded-2xl border border-slate-200/80 bg-white overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
+      whileHover={{ y: -4, scale: 1.02 }}
+      whileTap={{ scale: 0.97 }}
     >
-      <Card
-        className="overflow-visible shadow-lg hover:shadow-2xl transition-all duration-300 border-2 cursor-pointer"
-        style={{
-          borderColor: color,
-          background: expanded ? 'white' : `${color}08`,
-        }}
-      >
-        <motion.div
-          className="h-1"
-          style={{ backgroundColor: color }}
-          initial={{ width: 0 }}
-          animate={{ width: expanded ? '100%' : '0%' }}
-          transition={{ duration: 0.3 }}
-        />
+      {/* Top gradient bar */}
+      <div className={`h-1.5 w-full bg-gradient-to-r ${gradient}`} />
 
-        <CardHeader
-          className="p-4 sm:p-6 transition-all cursor-pointer"
-          style={{
-            background: `linear-gradient(135deg, ${color}20, ${color}10)`,
-            borderBottom: expanded ? `2px solid ${color}` : 'none',
-          }}
-          onClick={() => setExpanded(!expanded)}
-        >
-          <div className="flex items-center justify-between gap-2 sm:gap-4">
-            <div className="flex items-center gap-2 sm:gap-4 flex-1 min-w-0">
-              <motion.div
-                animate={{ rotate: expanded ? 20 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="text-xl sm:text-2xl flex-shrink-0"
-                style={{ color }}
-              >
-                <FaGraduationCap />
-              </motion.div>
-              <div className="flex-1 min-w-0">
-                <CardTitle className="text-base sm:text-lg font-bold truncate" style={{ color }}>
-                  {semesterName}
-                </CardTitle>
-                <p className="text-xs text-slate-500 mt-0.5 sm:mt-1 truncate">
-                  Sem {semesterNumber}
-                </p>
-              </div>
-            </div>
-            <motion.div
-              animate={{ rotate: expanded ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
-              className="flex-shrink-0"
-            >
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 sm:h-10 sm:w-10 hover:bg-white/40 min-h-12 min-w-12"
-                style={{ color }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setExpanded(!expanded);
-                }}
-              >
-                <ChevronDown className="h-5 w-5" />
-              </Button>
-            </motion.div>
+      <div className="p-4 sm:p-5">
+        <div className="flex items-center gap-3 sm:gap-4">
+          {/* Icon */}
+          <motion.div
+            className={`w-11 h-11 sm:w-13 sm:h-13 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center text-white shadow-md flex-shrink-0`}
+            whileHover={{ rotate: 10 }}
+            transition={{ duration: 0.2 }}
+          >
+            <FaGraduationCap className="w-5 h-5 sm:w-6 sm:h-6" />
+          </motion.div>
+
+          {/* Text */}
+          <div className="flex-1 min-w-0">
+            <h3 className="text-sm sm:text-base font-bold text-slate-800 group-hover:text-slate-900 truncate">
+              {semesterName}
+            </h3>
+            <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5">
+              Semestre {semesterNumber}
+            </p>
           </div>
-        </CardHeader>
 
-        <AnimatePresence>
-          {expanded && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden"
-            >
-              <CardContent className="p-3 sm:p-6 lg:p-7 bg-white/50 backdrop-blur-sm">
-                <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.2, delay: 0.1 }}
-                >
-                  <div className="flex items-center gap-2 mb-3 sm:mb-4 pb-3 sm:pb-4 border-b border-slate-200">
-                    <FaFolder style={{ color }} />
-                    <span className="font-semibold text-slate-700 text-sm sm:text-base">Documentos</span>
-                  </div>
-                  <FileExplorer folderId={semesterId} semesterName={semesterName} />
-                </motion.div>
-              </CardContent>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </Card>
-    </motion.div>
+          {/* Arrow */}
+          <motion.div
+            className="flex-shrink-0 text-slate-400 group-hover:text-slate-600"
+            initial={{ x: 0 }}
+            whileHover={{ x: 4 }}
+          >
+            <ChevronRight className="w-5 h-5" />
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Discrete branding */}
+      <div className="px-4 sm:px-5 pb-2">
+        <p className="text-[8px] sm:text-[9px] text-slate-300 text-right tracking-wide">
+          Ing. L. Pacosillo T.
+        </p>
+      </div>
+
+      {/* Hover glow effect */}
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
+        style={{
+          boxShadow: `inset 0 0 0 2px ${color}`,
+        }}
+      />
+    </motion.button>
   );
 }

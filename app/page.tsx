@@ -26,7 +26,7 @@ export default function Home() {
                 ⚙️ Configuración Requerida
               </h1>
               <p className="text-red-700 text-sm">
-                Falta completar la instalación de la Biblioteca Virtual
+                Falta completar la instalación de El Blog del Ingeniero
               </p>
             </div>
             <div className="p-6 space-y-4">
