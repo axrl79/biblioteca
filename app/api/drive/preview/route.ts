@@ -23,8 +23,8 @@ export async function GET(request: NextRequest) {
       // PDFs se pueden previsualizar directamente desde Google Drive
       previewUrl = `https://drive.google.com/file/d/${fileId}/preview`;
     } else if (mimeType.startsWith('image/')) {
-      // Las imágenes se pueden exportar
-      previewUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
+      // Usar nuestro proxy local para evitar problemas de CORS y permisos con Google
+      previewUrl = `/api/drive/image/${fileId}`;
     } else if (mimeType.startsWith('application/vnd.google-apps.')) {
       // Google Docs, Sheets, etc - usar webViewLink
       previewUrl = metadata.webViewLink || '';

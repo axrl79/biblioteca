@@ -116,6 +116,10 @@ function PreviewContent({
                 src={previewData.previewUrl}
                 alt={fileName}
                 className="max-w-full max-h-[65vh] mx-auto rounded-xl shadow-sm object-contain"
+                onError={(e) => {
+                  console.error('Image failed to load:', previewData.previewUrl);
+                  e.currentTarget.src = 'https://placehold.co/600x400?text=Error+al+cargar+imagen';
+                }}
               />
             ) : (
               <iframe

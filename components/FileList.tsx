@@ -73,7 +73,7 @@ export function FileList({ files, onPreview, onDownload }: FileListProps) {
               </div>
 
               {/* Actions */}
-              <div className="flex gap-1.5 flex-shrink-0 opacity-70 group-hover:opacity-100 transition-opacity">
+              <div className="flex gap-1.5 flex-shrink-0 opacity-100 sm:opacity-70 group-hover:opacity-100 transition-opacity">
                 <Button
                   size="sm"
                   variant="ghost"

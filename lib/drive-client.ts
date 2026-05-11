@@ -92,7 +92,7 @@ export async function getFileMetadata(fileId: string): Promise<any> {
   try {
     const file = await drive.files.get({
       fileId,
-      fields: 'id, name, mimeType, size, webViewLink, webContentLink, parents',
+      fields: 'id, name, mimeType, size, webViewLink, webContentLink, thumbnailLink, parents',
     });
     return file.data;
   } catch (error) {
@@ -164,6 +164,27 @@ export async function buildFolderTree(
     };
   } catch (error) {
     console.error('[v0] Error building folder tree:', error);
+    throw error;
+  }
+}
+export async function getFileStream(fileId: string): Promise<{ data: any; mimeType: string }> {
+  try {
+    const file = await drive.files.get({
+      fileId,
+      alt: 'media',
+    }, { responseType: 'stream' });
+    
+    const metadata = await drive.files.get({
+      fileId,
+      fields: 'mimeType',
+    });
+
+    return {
+      data: file.data,
+      mimeType: metadata.data.mimeType || 'application/octet-stream',
+    };
+  } catch (error) {
+    console.error('[getFileStream] Error:', error);
     throw error;
   }
 }

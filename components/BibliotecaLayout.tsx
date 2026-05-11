@@ -6,8 +6,9 @@ import { Input } from '@/components/ui/input';
 import { SemesterGridSkeleton } from './SkeletonLoader';
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Search } from 'lucide-react';
+import { Search, ShieldCheck, GraduationCap, Users, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
 
 interface Semestre {
   id: string;
@@ -99,6 +100,102 @@ export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
           </motion.div>
         </div>
       </motion.header>
+      {/* Campaign Hero Section */}
+      <section className="relative overflow-hidden pt-8 pb-12 sm:pt-12 sm:pb-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="relative z-10 grid lg:grid-cols-2 gap-8 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-6"
+            >
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-700 text-xs font-bold uppercase tracking-wider">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                Campaña 2026
+              </div>
+              
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 leading-[1.1]">
+                Transformando la <span className="text-emerald-600">Ingeniería</span> con Experiencia y Juventud
+              </h2>
+              
+              <p className="text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
+                Comprometido con la excelencia académica y el desarrollo profesional de los ingenieros civiles. Juntos construiremos un futuro sólido.
+              </p>
+
+              <div className="flex flex-wrap gap-4 pt-2">
+                <Button className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-full px-8 py-6 h-auto text-base font-bold shadow-lg shadow-emerald-200 group transition-all">
+                  Conoce el Proyecto
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+                <div className="flex -space-x-3 items-center ml-2">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center text-[10px] font-bold text-slate-500 overflow-hidden shadow-sm">
+                       <Users className="w-5 h-5 opacity-40" />
+                    </div>
+                  ))}
+                  <span className="pl-5 text-xs font-medium text-slate-500">+500 colegas apoyando</span>
+                </div>
+              </div>
+
+              {/* Stats/Badges */}
+              <div className="grid grid-cols-3 gap-4 pt-4">
+                <div className="flex flex-col gap-1">
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+                    <GraduationCap className="w-5 h-5" />
+                  </div>
+                  <span className="text-[10px] font-bold uppercase text-slate-400">Excelencia</span>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center text-orange-600">
+                    <ShieldCheck className="w-5 h-5" />
+                  </div>
+                  <span className="text-[10px] font-bold uppercase text-slate-400">Compromiso</span>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600">
+                    <Users className="w-5 h-5" />
+                  </div>
+                  <span className="text-[10px] font-bold uppercase text-slate-400">Comunidad</span>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ duration: 0.7, delay: 0.4 }}
+              className="relative hidden lg:block"
+            >
+              <div className="relative w-full aspect-square max-w-[450px] mx-auto">
+                <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/20 to-teal-500/10 rounded-3xl -rotate-6 scale-95" />
+                <div className="absolute inset-0 bg-gradient-to-bl from-emerald-500/20 to-teal-500/10 rounded-3xl rotate-3 scale-95" />
+                <div className="relative h-full w-full bg-white rounded-3xl shadow-2xl shadow-emerald-200/50 overflow-hidden border border-slate-100 flex flex-col items-center justify-center p-8 text-center space-y-4">
+                  <Image
+                    src="/logosombrarr.png"
+                    alt="Ing. Luis Pacosillo Ticona"
+                    width={180}
+                    height={180}
+                    className="w-40 h-40 object-contain drop-shadow-xl"
+                  />
+                  <div>
+                    <h3 className="text-2xl font-black text-slate-800">Ing. Luis Pacosillo</h3>
+                    <p className="text-emerald-600 font-bold tracking-widest text-xs uppercase mt-1">Líder Civil 2026</p>
+                  </div>
+                  <div className="w-12 h-1 bg-emerald-500 rounded-full mx-auto" />
+                  <p className="text-sm text-slate-500 italic px-4">
+                    &quot;La ingeniería no solo construye estructuras, construye el progreso de nuestra sociedad.&quot;
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+        
+        {/* Background shapes */}
+        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[600px] h-[600px] bg-emerald-50 rounded-full blur-3xl opacity-50 -z-10" />
+        <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-teal-50 rounded-full blur-3xl opacity-50 -z-10" />
+      </section>
 
       {/* Main Content */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
@@ -181,6 +278,14 @@ export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
                   Ing. Luis Pacosillo Ticona
                 </p>
               </div>
+            </div>
+            <div className="flex-1 max-w-md">
+              <h4 className="text-sm font-bold text-slate-800 mb-2">Nuestra Visión</h4>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Trabajamos por una facultad moderna, con recursos digitales accesibles para todos. 
+                El Blog del Ingeniero es solo el comienzo de la transformación digital que propone el 
+                <span className="font-bold text-emerald-600"> Ing. Luis Pacosillo Ticona</span>.
+              </p>
             </div>
             <div className="flex gap-6">
               <div className="text-center">
