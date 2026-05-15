@@ -11,6 +11,10 @@ const SEMESTERS = [
   { id: process.env.SEMESTER_7_ID || '', name: '7mo Semestre', number: 7 },
   { id: process.env.SEMESTER_8_ID || '', name: '8vo Semestre', number: 8 },
   { id: process.env.SEMESTER_9_ID || '', name: '9no Semestre', number: 9 },
+  { id: process.env.Bibliografia_de_ingenieria_en_general_ID || '', name: 'Bibliografía General', number: 10 },
+  { id: process.env.Mencion || '', name: 'Mención', number: 11 },
+  { id: process.env.Planillas_plantillas_calculo || '', name: 'Planillas de Cálculo', number: 12 },
+  { id: process.env.Proceso_de_titulacion || '', name: 'Proceso de Titulación', number: 13 },
 ];
 
 export default function Home() {

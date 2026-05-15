@@ -59,7 +59,7 @@ export function SemestreCard({
               {semesterName}
             </h3>
             <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5">
-              Semestre {semesterNumber}
+              {semesterNumber <= 9 ? `Semestre ${semesterNumber}` : 'Categoría Especial'}
             </p>
           </div>
 

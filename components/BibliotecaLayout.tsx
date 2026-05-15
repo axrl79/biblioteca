@@ -90,7 +90,7 @@ export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
             <div className="relative">
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <Input
-                placeholder="Buscar semestre..."
+                placeholder="Buscar categoría..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10 h-10 sm:h-11 text-sm border-slate-200 rounded-xl bg-slate-50/80 focus:bg-white focus:border-green-400 focus:ring-green-200/50 transition-all"
@@ -143,7 +143,7 @@ export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
                   href="#semestres"
                   className="inline-flex items-center gap-2 text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors group"
                 >
-                  Explorar recursos por semestre
+                  Explorar recursos y categorías
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
               </motion.div>
@@ -227,7 +227,7 @@ export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
           className="mb-5 sm:mb-8"
         >
           <h2 className="text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-wider">
-            Selecciona un semestre
+            Explorar categorías
           </h2>
         </motion.div>
 
@@ -267,7 +267,7 @@ export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
             animate={{ opacity: 1 }}
           >
             <p className="text-slate-400 text-sm">
-              No se encontraron semestres para &quot;{searchTerm}&quot;
+              No se encontraron categorías para &quot;{searchTerm}&quot;
             </p>
           </motion.div>
         ) : (
@@ -310,7 +310,7 @@ export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
             <div className="flex gap-6">
               <div className="text-center">
                 <p className="text-lg font-bold text-green-700">{semesters.length}</p>
-                <p className="text-[10px] text-slate-500 uppercase tracking-wider">Semestres</p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider">Categorías</p>
               </div>
               <div className="text-center">
                 <p className="text-lg font-bold text-blue-700">∞</p>

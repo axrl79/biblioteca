@@ -19,8 +19,10 @@ export async function GET(request: NextRequest) {
     let previewUrl = '';
     const mimeType = metadata.mimeType;
 
-    if (mimeType === 'application/pdf') {
-      // PDFs se pueden previsualizar directamente desde Google Drive
+    const isOfficeFile = mimeType.includes('officedocument') || mimeType.includes('msword') || mimeType.includes('ms-excel') || mimeType.includes('ms-powerpoint');
+
+    if (mimeType === 'application/pdf' || isOfficeFile) {
+      // PDFs y archivos de Office se pueden previsualizar directamente desde Google Drive
       previewUrl = `https://drive.google.com/file/d/${fileId}/preview`;
     } else if (mimeType.startsWith('image/')) {
       // Usar nuestro proxy local para evitar problemas de CORS y permisos con Google

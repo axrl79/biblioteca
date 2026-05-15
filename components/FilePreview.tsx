@@ -67,10 +67,13 @@ function PreviewContent({
     }
   };
 
+  const isOfficeFile = mimeType.includes('officedocument') || mimeType.includes('msword') || mimeType.includes('ms-excel') || mimeType.includes('ms-powerpoint');
+
   const canShowPreview =
     mimeType === 'application/pdf' ||
     mimeType.startsWith('image/') ||
-    mimeType.includes('google-apps');
+    mimeType.includes('google-apps') ||
+    isOfficeFile;
 
   return (
     <div className="flex flex-col h-full max-h-[90vh] sm:max-h-[85vh]">
