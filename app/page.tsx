@@ -1,7 +1,16 @@
 import { BibliotecaLayout } from '@/components/BibliotecaLayout';
 
-// Configuración de los 9 semestres
+// Configuración de semestres y carpetas
 const SEMESTERS = [
+  { id: 'SEMESTERS', name: 'Semestres', number: 0, isContainer: true },
+  { id: process.env.Bibliografia_de_ingenieria_en_general_ID || '', name: 'Bibliografía General', number: 10 },
+  { id: process.env.Mencion || '', name: 'Mención', number: 11 },
+  { id: process.env.Planillas_plantillas_calculo || '', name: 'Planillas de Cálculo', number: 12 },
+  { id: process.env.Proceso_de_titulacion || '', name: 'Proceso de Titulación', number: 13 },
+];
+
+// Semestres individuales (estructura local)
+export const SEMESTER_DETAILS = [
   { id: process.env.SEMESTER_1_ID || '', name: '1er Semestre', number: 1 },
   { id: process.env.SEMESTER_2_ID || '', name: '2do Semestre', number: 2 },
   { id: process.env.SEMESTER_3_ID || '', name: '3er Semestre', number: 3 },
@@ -11,10 +20,6 @@ const SEMESTERS = [
   { id: process.env.SEMESTER_7_ID || '', name: '7mo Semestre', number: 7 },
   { id: process.env.SEMESTER_8_ID || '', name: '8vo Semestre', number: 8 },
   { id: process.env.SEMESTER_9_ID || '', name: '9no Semestre', number: 9 },
-  { id: process.env.Bibliografia_de_ingenieria_en_general_ID || '', name: 'Bibliografía General', number: 10 },
-  { id: process.env.Mencion || '', name: 'Mención', number: 11 },
-  { id: process.env.Planillas_plantillas_calculo || '', name: 'Planillas de Cálculo', number: 12 },
-  { id: process.env.Proceso_de_titulacion || '', name: 'Proceso de Titulación', number: 13 },
 ];
 
 export default function Home() {
@@ -43,7 +48,7 @@ export default function Home() {
               </div>
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <p className="text-xs text-blue-900 font-mono">
-                  Variables faltantes: SEMESTER_1_ID hasta SEMESTER_9_ID
+                  Variables faltantes: SEMESTERS_FOLDER_ID, Bibliografia_de_ingenieria_en_general_ID, etc.
                 </p>
               </div>
               <p className="text-xs text-slate-600">
@@ -59,7 +64,8 @@ export default function Home() {
   return (
     <BibliotecaLayout
       rootFolderId={rootFolderId}
-      semesters={SEMESTERS.filter((s) => s.id)} // Filtra semestres sin ID configurado
+      semesters={SEMESTERS.filter((s) => s.id)}
+      semesterDetails={SEMESTER_DETAILS}
     />
   );
 }

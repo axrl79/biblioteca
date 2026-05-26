@@ -5,20 +5,26 @@ import { FolderModal } from './FolderModal';
 import { IngenieroModal } from './IngenieroModal';
 import { Input } from '@/components/ui/input';
 import { SemesterGridSkeleton } from './SkeletonLoader';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Drawer, DrawerContent, DrawerTitle, DrawerDescription } from '@/components/ui/drawer';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Search, ArrowRight, BookOpen, GraduationCap, Users } from 'lucide-react';
+import { Search, ArrowRight, BookOpen, GraduationCap, Users, X } from 'lucide-react';
 import Image from 'next/image';
 
 interface Semestre {
   id: string;
   name: string;
   number: number;
+  isContainer?: boolean;
 }
 
 interface BibliotecaLayoutProps {
   rootFolderId: string;
   semesters: Semestre[];
+  semesterDetails: Semestre[];
 }
 
 // Warm, earthy color palette — feels hand-picked, not generated
@@ -38,10 +44,13 @@ const WARM_COLORS = [
   '#b0603a', // clay
 ];
 
-export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
+export function BibliotecaLayout({ semesters, semesterDetails }: BibliotecaLayoutProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSemester, setSelectedSemester] = useState<Semestre | null>(null);
   const [ingenieroModalOpen, setIngenieroModalOpen] = useState(false);
+  const [showSemestersView, setShowSemestersView] = useState(false);
+  const [selectedSemesterFromView, setSelectedSemesterFromView] = useState<Semestre | null>(null);
+  const isMobile = useIsMobile();
 
   const filteredSemesters = useMemo(() => {
     return semesters.filter((sem) =>
@@ -130,12 +139,12 @@ export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
                 </a>
                 <div className="flex items-center gap-6 px-2 sm:px-4">
                   <div className="text-center">
-                    <p className="text-xl font-semibold text-[#3d2e22]">{semesters.filter(s => s.number <= 9).length}</p>
-                    <p className="text-[10px] text-[#8a7568] uppercase tracking-wider mt-0.5">Semestres</p>
+                    <p className="text-xl font-semibold text-[#3d2e22]">1</p>
+                    <p className="text-[10px] text-[#8a7568] uppercase tracking-wider mt-0.5">Carpeta</p>
                   </div>
                   <div className="w-px h-8 bg-[#ebe0d4]" />
                   <div className="text-center">
-                    <p className="text-xl font-semibold text-[#3d2e22]">{semesters.filter(s => s.number > 9).length}</p>
+                    <p className="text-xl font-semibold text-[#3d2e22]">4</p>
                     <p className="text-[10px] text-[#8a7568] uppercase tracking-wider mt-0.5">Extras</p>
                   </div>
                 </div>
@@ -163,13 +172,13 @@ export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
                 <div className="p-5 sm:p-6 space-y-4">
                   {/* Avatar + name */}
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden bg-[#f5ebe1] p-1.5 flex-shrink-0">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden bg-[#f5ebe1] p-0 flex-shrink-0">
                       <Image
-                        src="/logosombrarr.png"
+                        src="/ING.png"
                         alt="Ing. Luis Pacosillo Ticona"
                         width={64}
                         height={64}
-                        className="w-full h-full object-contain"
+                        className="w-full h-full object-cover"
                       />
                     </div>
                     <div>
@@ -321,7 +330,13 @@ export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
                   semesterName={semester.name}
                   semesterNumber={semester.number}
                   color={WARM_COLORS[index % WARM_COLORS.length]}
-                  onClick={() => setSelectedSemester(semester)}
+                  onClick={() => {
+                    if (semester.isContainer || semester.id === 'SEMESTERS') {
+                      setShowSemestersView(true);
+                    } else {
+                      setSelectedSemester(semester);
+                    }
+                  }}
                 />
               </motion.div>
             ))}
@@ -381,6 +396,88 @@ export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
         </div>
       </footer>
 
+      {/* Semestres View Modal */}
+      {isMobile ? (
+        <Drawer open={showSemestersView} onOpenChange={setShowSemestersView}>
+          <DrawerContent className="bg-white max-h-[85vh]">
+            <DrawerTitle className="px-6 pt-4">Semestres</DrawerTitle>
+            <DrawerDescription className="px-6 text-xs">
+              Selecciona un semestre para explorar su contenido
+            </DrawerDescription>
+            <ScrollArea className="flex-1 px-6 py-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pr-4">
+                {semesterDetails.map((semester, idx) => (
+                  <motion.button
+                    key={semester.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: idx * 0.05 }}
+                    onClick={() => {
+                      setShowSemestersView(false);
+                      setSelectedSemesterFromView(semester);
+                    }}
+                    className="p-4 rounded-lg border border-[#ebe0d4] text-left hover:border-[#d4600a] transition-all"
+                    style={{
+                      background: 'linear-gradient(135deg, #faf3eb 0%, #fdf8f3 100%)',
+                    }}
+                  >
+                    <p className="font-semibold text-[#3d2e22] text-sm">{semester.name}</p>
+                    <p className="text-xs text-[#8a7568] mt-1">Semestre {semester.number}</p>
+                  </motion.button>
+                ))}
+              </div>
+            </ScrollArea>
+          </DrawerContent>
+        </Drawer>
+      ) : (
+        <Dialog open={showSemestersView} onOpenChange={setShowSemestersView}>
+          <DialogContent className="max-w-2xl max-h-[85vh] overflow-hidden p-0 bg-white border border-[#ebe0d4]">
+            <DialogTitle className="sr-only">Semestres</DialogTitle>
+            <DialogDescription className="sr-only">
+              Selecciona un semestre para explorar su contenido
+            </DialogDescription>
+            <button
+              onClick={() => setShowSemestersView(false)}
+              className="absolute right-4 top-4 z-50 rounded-lg p-1.5 text-[#6b5c50] hover:bg-[#faf3eb] transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <div className="px-6 pt-6 pb-4 border-b border-[#ebe0d4]">
+              <h2 className="text-2xl font-bold text-[#3d2e22]">Selecciona un Semestre</h2>
+              <p className="text-sm text-[#8a7568] mt-1">9 semestres disponibles en la carrera</p>
+            </div>
+            <ScrollArea className="flex-1 px-6 py-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pr-4">
+                {semesterDetails.map((semester, idx) => (
+                  <motion.button
+                    key={semester.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: idx * 0.05 }}
+                    onClick={() => {
+                      setShowSemestersView(false);
+                      setSelectedSemesterFromView(semester);
+                    }}
+                    className="p-4 rounded-lg border border-[#ebe0d4] text-left hover:border-[#d4600a] hover:bg-[#faf3eb] transition-all group cursor-pointer"
+                    style={{
+                      background: 'linear-gradient(135deg, #fdf8f3 0%, #fffaf5 100%)',
+                    }}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="font-semibold text-[#3d2e22] text-sm">{semester.name}</p>
+                        <p className="text-xs text-[#8a7568] mt-1">Semestre {semester.number}</p>
+                      </div>
+                      <ArrowRight className="w-4 h-4 text-[#c05621] opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                  </motion.button>
+                ))}
+              </div>
+            </ScrollArea>
+          </DialogContent>
+        </Dialog>
+      )}
+
       {/* Folder Modal */}
       {selectedSemester && (
         <FolderModal
@@ -389,6 +486,17 @@ export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
           semesterId={selectedSemester.id}
           semesterName={selectedSemester.name}
           semesterColor={WARM_COLORS[(selectedSemester.number - 1) % WARM_COLORS.length]}
+        />
+      )}
+
+      {/* Folder Modal from Semestres View */}
+      {selectedSemesterFromView && (
+        <FolderModal
+          isOpen={!!selectedSemesterFromView}
+          onClose={() => setSelectedSemesterFromView(null)}
+          semesterId={selectedSemesterFromView.id}
+          semesterName={selectedSemesterFromView.name}
+          semesterColor={WARM_COLORS[(selectedSemesterFromView.number - 1) % WARM_COLORS.length]}
         />
       )}
 
