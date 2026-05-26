@@ -93,21 +93,21 @@ function FolderContent({
 
   return (
     <>
-      <div className="flex flex-col h-full max-h-[85vh] sm:max-h-[80vh]">
+      <div className="flex flex-col h-full max-h-[85vh] sm:max-h-[80vh]" style={{ background: '#fdf8f3' }}>
         {/* Header */}
         <div
-          className="flex-shrink-0 border-b-2 px-4 sm:px-6 pt-2 pb-3 sm:py-4"
-          style={{ borderColor: semesterColor }}
+          className="flex-shrink-0 px-5 sm:px-6 pt-3 pb-3 sm:py-4"
+          style={{ borderBottom: `2px solid ${semesterColor}20` }}
         >
-          <div className="flex items-center justify-between gap-2 mb-2">
-            <div className="flex items-center gap-2.5 min-w-0 flex-1">
+          <div className="flex items-center justify-between gap-3 mb-2">
+            <div className="flex items-center gap-3 min-w-0 flex-1">
               <div
-                className="p-2 rounded-lg flex-shrink-0"
-                style={{ backgroundColor: `${semesterColor}20`, color: semesterColor }}
+                className="p-2.5 rounded-xl flex-shrink-0"
+                style={{ backgroundColor: `${semesterColor}12`, color: semesterColor }}
               >
                 <FolderOpen className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
-              <h2 className="font-bold text-base sm:text-lg text-slate-800 truncate">
+              <h2 className="font-heading font-semibold text-base sm:text-lg text-[#2d1f14] truncate">
                 {semesterName}
               </h2>
             </div>
@@ -115,7 +115,7 @@ function FolderContent({
               variant="ghost"
               size="icon"
               onClick={onClose}
-              className="h-8 w-8 sm:h-9 sm:w-9 hover:bg-red-50 hover:text-red-600 flex-shrink-0"
+              className="h-9 w-9 rounded-xl hover:bg-[#f5ebe1] hover:text-[#c53030] flex-shrink-0 transition-colors"
             >
               <X className="h-4 w-4" />
             </Button>
@@ -128,30 +128,31 @@ function FolderContent({
         </div>
 
         {/* Search */}
-        <div className="flex-shrink-0 px-4 sm:px-6 py-3 border-b border-slate-100">
+        <div className="flex-shrink-0 px-5 sm:px-6 py-3" style={{ borderBottom: '1px solid #ebe0d4' }}>
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#b5a89c]" />
             <Input
               placeholder="Buscar en esta carpeta..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-9 h-9 sm:h-10 text-sm border-slate-200 rounded-xl focus:border-green-400 focus:ring-green-200/50"
+              className="pl-10 h-10 sm:h-11 text-sm rounded-xl border-[#ebe0d4] bg-[#fffaf5] text-[#3d2e22] placeholder:text-[#b5a89c] focus:border-[#d4600a] focus:ring-1 focus:ring-[#d4600a]/20"
             />
           </div>
         </div>
 
         {/* Content */}
         <ScrollArea className="flex-1 overflow-auto">
-          <div className="px-4 sm:px-6 py-4 space-y-5">
+          <div className="px-5 sm:px-6 py-4 space-y-5">
             {loading ? (
               <ContentSkeleton />
             ) : error ? (
               <motion.div
-                className="p-4 rounded-xl bg-red-50 border border-red-200"
+                className="p-4 rounded-xl"
+                style={{ background: '#fef2f2', border: '1px solid #fecaca' }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
               >
-                <p className="text-sm text-red-600">⚠️ Error: {error}</p>
+                <p className="text-sm text-[#c53030]">⚠️ Error: {error}</p>
               </motion.div>
             ) : filteredFolders.length === 0 && filteredDocuments.length === 0 ? (
               <EmptyState type={searchTerm ? 'search' : 'folder'} />
@@ -159,11 +160,11 @@ function FolderContent({
               <AnimatePresence mode="wait">
                 <motion.div
                   key={folderId}
-                  initial={{ opacity: 0, x: 20 }}
+                  initial={{ opacity: 0, x: 16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.2 }}
-                  className="space-y-5"
+                  exit={{ opacity: 0, x: -16 }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  className="space-y-6"
                 >
                   <FolderGrid folders={filteredFolders} onFolderClick={onNavigateFolder} />
                   <FileList
@@ -178,24 +179,24 @@ function FolderContent({
         </ScrollArea>
 
         {/* Footer */}
-        <div className="flex-shrink-0 border-t border-slate-200 px-4 sm:px-6 py-3 bg-slate-50/80 backdrop-blur-sm">
+        <div
+          className="flex-shrink-0 px-5 sm:px-6 py-3"
+          style={{ borderTop: '1px solid #ebe0d4', background: '#faf3eb' }}
+        >
           <div className="flex items-center justify-between">
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-[#8a7568]">
               {!loading && (
                 <>
                   {folders.length > 0 && (
-                    <span>📁 {folders.length} carpeta{folders.length !== 1 ? 's' : ''}</span>
+                    <span>{folders.length} carpeta{folders.length !== 1 ? 's' : ''}</span>
                   )}
                   {folders.length > 0 && documents.length > 0 && <span> · </span>}
                   {documents.length > 0 && (
-                    <span>📄 {documents.length} archivo{documents.length !== 1 ? 's' : ''}</span>
+                    <span>{documents.length} archivo{documents.length !== 1 ? 's' : ''}</span>
                   )}
                   {folders.length === 0 && documents.length === 0 && <span>Carpeta vacía</span>}
                 </>
               )}
-            </p>
-            <p className="text-[9px] text-slate-300 tracking-wide">
-              Ing. L. Pacosillo T.
             </p>
           </div>
         </div>
@@ -261,7 +262,7 @@ export function FolderModal({
   if (isMobile) {
     return (
       <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
-        <DrawerContent className="max-h-[92vh]">
+        <DrawerContent className="max-h-[92vh]" style={{ background: '#fdf8f3' }}>
           <DrawerTitle className="sr-only">{semesterName}</DrawerTitle>
           <DrawerDescription className="sr-only">
             Explorador de archivos de {semesterName}
@@ -277,6 +278,7 @@ export function FolderModal({
       <DialogContent
         showCloseButton={false}
         className="sm:max-w-2xl lg:max-w-3xl p-0 gap-0 rounded-2xl overflow-hidden"
+        style={{ background: '#fdf8f3', border: '1px solid #ebe0d4' }}
       >
         <DialogTitle className="sr-only">{semesterName}</DialogTitle>
         <DialogDescription className="sr-only">

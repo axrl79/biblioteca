@@ -2,11 +2,12 @@
 
 import { SemestreCard } from './SemestreCard';
 import { FolderModal } from './FolderModal';
+import { IngenieroModal } from './IngenieroModal';
 import { Input } from '@/components/ui/input';
 import { SemesterGridSkeleton } from './SkeletonLoader';
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Search, ArrowRight } from 'lucide-react';
+import { Search, ArrowRight, BookOpen, GraduationCap, Users } from 'lucide-react';
 import Image from 'next/image';
 
 interface Semestre {
@@ -20,21 +21,27 @@ interface BibliotecaLayoutProps {
   semesters: Semestre[];
 }
 
-const COLORS = [
-  '#059669', // emerald-600
-  '#4f46e5', // indigo-600
-  '#7c3aed', // violet-600
-  '#d97706', // amber-600
-  '#e11d48', // rose-600
-  '#0891b2', // cyan-600
-  '#65a30d', // lime-600
-  '#c026d3', // fuchsia-600
-  '#0284c7', // sky-600
+// Warm, earthy color palette — feels hand-picked, not generated
+const WARM_COLORS = [
+  '#c05621', // burnt sienna
+  '#b7791f', // golden brown
+  '#9c6644', // warm wood
+  '#a0522d', // sienna
+  '#8b6f47', // wheat dark
+  '#c67538', // terracotta
+  '#966b3d', // caramel
+  '#ab7840', // bronze
+  '#bf6930', // rust
+  '#7c694a', // warm olive
+  '#a86932', // toffee
+  '#8a6e42', // oak
+  '#b0603a', // clay
 ];
 
 export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSemester, setSelectedSemester] = useState<Semestre | null>(null);
+  const [ingenieroModalOpen, setIngenieroModalOpen] = useState(false);
 
   const filteredSemesters = useMemo(() => {
     return semesters.filter((sem) =>
@@ -43,168 +50,187 @@ export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
   }, [semesters, searchTerm]);
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
-      {/* Header */}
+    <main className="min-h-screen" style={{ background: 'linear-gradient(180deg, #fdf8f3 0%, #faf3eb 50%, #fdf8f3 100%)' }}>
+      {/* Header — warm glass with natural feel */}
       <motion.header
-        initial={{ y: -100, opacity: 0 }}
+        initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="sticky top-0 z-20 backdrop-blur-xl bg-white/85 border-b border-slate-200/80 shadow-sm"
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="sticky top-0 z-20 border-b"
+        style={{
+          background: 'rgba(253, 248, 243, 0.88)',
+          backdropFilter: 'blur(20px) saturate(1.3)',
+          WebkitBackdropFilter: 'blur(20px) saturate(1.3)',
+          borderColor: 'rgba(235, 224, 212, 0.5)',
+        }}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
-          <div className="flex items-center gap-3 sm:gap-4">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 py-4">
+          <div className="flex items-center gap-4">
             {/* Logo */}
-            <motion.div
-              className="flex-shrink-0"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
-            >
+            <div className="flex-shrink-0">
               <Image
                 src="/logosombrarr.png"
                 alt="El Blog del Ingeniero"
-                width={56}
-                height={56}
-                className="w-12 h-12 sm:w-14 sm:h-14 object-contain rounded-xl"
+                width={48}
+                height={48}
+                className="w-11 h-11 sm:w-12 sm:h-12 object-contain"
                 priority
               />
-            </motion.div>
+            </div>
 
-            {/* Title */}
+            {/* Title — serif for warmth */}
             <div className="flex-1 min-w-0">
-              <h1 className="text-lg sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-emerald-700 via-green-600 to-teal-600 bg-clip-text text-transparent truncate">
+              <h1 className="font-heading text-xl sm:text-2xl font-semibold text-[#3d2e22] truncate tracking-tight">
                 El Blog del Ingeniero
               </h1>
-              <p className="text-slate-400 text-[10px] sm:text-xs mt-0.5 font-medium tracking-wide">
+              <p className="text-[#8a7568] text-[11px] sm:text-xs mt-0.5 tracking-wide">
                 Ing. Luis Pacosillo Ticona
               </p>
             </div>
           </div>
-
-          {/* Search Bar */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="mt-3"
-          >
-            <div className="relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <Input
-                placeholder="Buscar categoría..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 h-10 sm:h-11 text-sm border-slate-200 rounded-xl bg-slate-50/80 focus:bg-white focus:border-green-400 focus:ring-green-200/50 transition-all"
-              />
-            </div>
-          </motion.div>
         </div>
       </motion.header>
-      {/* About this space + Profile — organic, knowledge-driven */}
-      <section className="relative overflow-hidden pt-6 pb-10 sm:pt-10 sm:pb-14 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="relative z-10 grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
-            {/* Left: Platform purpose + subtle vision (3 cols) */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="lg:col-span-3 space-y-5"
-            >
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                className="text-xs sm:text-sm text-slate-400 font-medium"
-              >
-                Un espacio abierto para la comunidad
-              </motion.p>
 
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 leading-[1.15]">
+      {/* Hero Section — editorial, warm, like a real publication */}
+      <section className="relative px-5 sm:px-8 pt-8 sm:pt-14 pb-10 sm:pb-16 overflow-hidden">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+            {/* Left: Editorial intro (7 cols) */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-7 space-y-6"
+            >
+              {/* Warm subtitle — like a magazine subheading */}
+              <p className="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-[#c05621] font-medium">
+                Un espacio para la comunidad
+              </p>
+
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-[2.75rem] font-semibold text-[#2d1f14] leading-[1.15] tracking-tight">
                 Compartir e intercambiar{' '}
-                <span className="bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
-                  conocimiento
-                </span>
-                {' '}en Ingeniería Civil
+                <span className="text-[#c05621]">conocimiento</span>{' '}
+                en Ingeniería Civil
               </h2>
 
-              <p className="text-sm sm:text-base text-slate-500 max-w-xl leading-relaxed">
+              <p className="text-[15px] sm:text-base text-[#6b5c50] max-w-lg leading-[1.75]">
                 Este espacio está creado para compartir e intercambiar conocimiento en Ingeniería Civil,
                 tanto para estudiantes como para profesionales que buscan mantenerse actualizados.
                 Recursos, bibliografía y material de apoyo técnico al alcance de todos.
               </p>
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.7 }}
-                className="pt-1"
-              >
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
                 <a
-                  href="#semestres"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors group"
+                  href="#categorias"
+                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3 text-sm font-medium text-white rounded-full transition-all duration-300 hover:shadow-lg active:scale-[0.97]"
+                  style={{ background: 'linear-gradient(135deg, #c05621 0%, #d4600a 100%)' }}
                 >
-                  Explorar recursos y categorías
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  Explorar recursos
+                  <ArrowRight className="w-4 h-4" />
                 </a>
-              </motion.div>
+                <div className="flex items-center gap-6 px-2 sm:px-4">
+                  <div className="text-center">
+                    <p className="text-xl font-semibold text-[#3d2e22]">{semesters.filter(s => s.number <= 9).length}</p>
+                    <p className="text-[10px] text-[#8a7568] uppercase tracking-wider mt-0.5">Semestres</p>
+                  </div>
+                  <div className="w-px h-8 bg-[#ebe0d4]" />
+                  <div className="text-center">
+                    <p className="text-xl font-semibold text-[#3d2e22]">{semesters.filter(s => s.number > 9).length}</p>
+                    <p className="text-[10px] text-[#8a7568] uppercase tracking-wider mt-0.5">Extras</p>
+                  </div>
+                </div>
+              </div>
             </motion.div>
 
-            {/* Right: Professional profile card (2 cols) */}
+            {/* Right: Profile card (5 cols) — like a printed business card */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="lg:col-span-2"
+              transition={{ duration: 0.8, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-5"
             >
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-tr from-emerald-100/30 to-teal-50/20 rounded-2xl -rotate-2 scale-[0.98]" />
-                <div className="relative bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg shadow-slate-200/50 overflow-hidden border border-slate-100/80">
-                  {/* Top accent bar */}
-                  <div className="h-1 bg-gradient-to-r from-emerald-500 to-teal-400" />
+              <div
+                className="rounded-2xl overflow-hidden"
+                style={{
+                  background: '#fffaf5',
+                  border: '1px solid rgba(235, 224, 212, 0.7)',
+                  boxShadow: '0 8px 40px -12px rgba(61, 46, 34, 0.10), 0 2px 8px -4px rgba(61, 46, 34, 0.04)',
+                }}
+              >
+                {/* Top accent — thin and elegant */}
+                <div className="h-0.5" style={{ background: 'linear-gradient(90deg, #c05621, #e8853a, #f0a564)' }} />
 
-                  <div className="p-6 sm:p-7 space-y-4">
-                    {/* Avatar + name */}
-                    <div className="flex items-center gap-4">
+                <div className="p-5 sm:p-6 space-y-4">
+                  {/* Avatar + name */}
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden bg-[#f5ebe1] p-1.5 flex-shrink-0">
                       <Image
                         src="/logosombrarr.png"
                         alt="Ing. Luis Pacosillo Ticona"
-                        width={72}
-                        height={72}
-                        className="w-16 h-16 sm:w-[72px] sm:h-[72px] object-contain rounded-xl bg-slate-50 p-1"
+                        width={64}
+                        height={64}
+                        className="w-full h-full object-contain"
                       />
-                      <div>
-                        <h3 className="text-lg font-bold text-slate-700">Ing. Luis Pacosillo Ticona</h3>
-                        <p className="text-emerald-600/80 font-medium text-xs mt-0.5">Ingeniero Civil Geotécnico</p>
-                      </div>
                     </div>
-
-                    <div className="w-full h-px bg-slate-100" />
-
-                    {/* Bio */}
-                    <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                      Docente en Ingeniería Civil de la <span className="font-semibold text-slate-600">UMSA</span>.
-                      Dicta las cátedras de <span className="font-medium text-slate-600">Mecánica de Suelos</span> y{' '}
-                      <span className="font-medium text-slate-600">Geología Aplicada</span>.
-                    </p>
-
-                    {/* Specialties — subtle tags */}
-                    <div className="flex flex-wrap gap-1.5">
-                      {['Cimentaciones', 'Estabilización', 'Mitigación Geotécnica'].map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-2.5 py-1 text-[10px] font-medium rounded-full bg-emerald-50 text-emerald-600/80 border border-emerald-100/60"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Quote */}
-                    <div className="relative pl-3 border-l-2 border-emerald-200/50 mt-2">
-                      <p className="text-[11px] text-slate-400 italic leading-relaxed">
-                        &quot;La ingeniería no solo construye estructuras, construye el progreso de nuestra sociedad.&quot;
+                    <div>
+                      <h3 className="font-heading text-lg font-semibold text-[#2d1f14]">
+                        Ing. Luis Pacosillo Ticona
+                      </h3>
+                      <p className="text-[#c05621] font-medium text-xs mt-0.5">
+                        Ingeniero Civil Geotécnico
                       </p>
                     </div>
+                  </div>
+
+                  <div className="w-full h-px bg-[#ebe0d4]" />
+
+                  {/* Bio */}
+                  <p className="text-[13px] sm:text-sm text-[#6b5c50] leading-relaxed">
+                    Docente en Ingeniería Civil de la{' '}
+                    <span className="font-semibold text-[#3d2e22]">UMSA</span>.
+                    Dicta las cátedras de{' '}
+                    <span className="font-medium text-[#3d2e22]">Mecánica de Suelos</span> y{' '}
+                    <span className="font-medium text-[#3d2e22]">Geología Aplicada</span>.
+                  </p>
+
+                  {/* Specialties */}
+                  <div className="flex flex-wrap gap-2">
+                    {['Cimentaciones', 'Estabilización', 'Mitigación Geotécnica'].map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1.5 text-[11px] font-medium rounded-full"
+                        style={{
+                          background: '#f5ebe1',
+                          color: '#8a6e42',
+                          border: '1px solid rgba(235, 224, 212, 0.6)',
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Quote */}
+                  <div className="relative pl-4 mt-3" style={{ borderLeft: '2px solid #ebe0d4' }}>
+                    <p className="text-[12px] text-[#8a7568] italic leading-relaxed">
+                      &quot;La ingeniería no solo construye estructuras, construye el progreso de nuestra sociedad.&quot;
+                    </p>
+                  </div>
+
+                  {/* CTA Button */}
+                  <div className="pt-3">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => setIngenieroModalOpen(true)}
+                      className="w-full px-4 py-2.5 text-xs font-semibold rounded-lg transition-all duration-300 text-white"
+                      style={{
+                        background: 'linear-gradient(135deg, #c05621 0%, #d4600a 100%)',
+                        boxShadow: '0 4px 15px -2px rgba(192, 86, 33, 0.2)',
+                      }}
+                    >
+                      Ver perfil completo
+                    </motion.button>
                   </div>
                 </div>
               </div>
@@ -212,49 +238,89 @@ export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
           </div>
         </div>
 
-        {/* Soft background accents */}
-        <div className="absolute top-0 right-0 -translate-y-1/3 translate-x-1/3 w-[500px] h-[500px] bg-emerald-50/60 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/4 w-[350px] h-[350px] bg-teal-50/40 rounded-full blur-3xl -z-10" />
+        {/* Background shapes — soft, organic blobs (not circles) */}
+        <div
+          className="absolute -top-20 right-0 w-[450px] h-[450px] -z-10 opacity-40"
+          style={{
+            background: 'radial-gradient(ellipse at 60% 40%, #fae0c2 0%, transparent 70%)',
+            borderRadius: '60% 40% 50% 50% / 50% 60% 40% 50%',
+            filter: 'blur(60px)',
+          }}
+        />
+        <div
+          className="absolute bottom-0 -left-20 w-[350px] h-[350px] -z-10 opacity-30"
+          style={{
+            background: 'radial-gradient(ellipse at 40% 60%, #f5c491 0%, transparent 70%)',
+            borderRadius: '40% 60% 55% 45% / 55% 40% 60% 45%',
+            filter: 'blur(60px)',
+          }}
+        />
       </section>
 
-      {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
-        {/* Section title */}
+      {/* Search + Grid Section */}
+      <div id="categorias" className="max-w-5xl mx-auto px-5 sm:px-8 pb-8 sm:pb-16">
+        {/* Search bar — warm and inviting */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="mb-8 sm:mb-10"
+        >
+          <div className="relative max-w-md">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8a7568]" />
+            <Input
+              placeholder="Buscar semestre o categoría..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-11 h-12 text-sm rounded-xl border-[#ebe0d4] bg-[#fffaf5] text-[#3d2e22] placeholder:text-[#b5a89c] focus:border-[#d4600a] focus:ring-1 focus:ring-[#d4600a]/20 transition-all shadow-organic-sm"
+            />
+          </div>
+        </motion.div>
+
+        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mb-5 sm:mb-8"
+          transition={{ delay: 0.5 }}
+          className="mb-6 sm:mb-8 flex items-end justify-between"
         >
-          <h2 className="text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-wider">
-            Explorar categorías
-          </h2>
+          <div>
+            <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-[#c05621] font-medium mb-1.5">
+              Explorar
+            </p>
+            <h2 className="font-heading text-xl sm:text-2xl font-semibold text-[#2d1f14]">
+              Categorías disponibles
+            </h2>
+          </div>
+          <p className="text-xs text-[#8a7568] hidden sm:block">
+            {semesters.length} categorías
+          </p>
         </motion.div>
 
         {/* Semesters Grid */}
         {filteredSemesters.length > 0 ? (
           <motion.div
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.5 }}
           >
             {filteredSemesters.map((semester, index) => (
               <motion.div
                 key={semester.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  duration: 0.4,
-                  delay: index * 0.06,
-                  ease: 'easeOut',
+                  duration: 0.5,
+                  delay: index * 0.04,
+                  ease: [0.22, 1, 0.36, 1],
                 }}
               >
                 <SemestreCard
                   semesterId={semester.id}
                   semesterName={semester.name}
                   semesterNumber={semester.number}
-                  color={COLORS[index % COLORS.length]}
+                  color={WARM_COLORS[index % WARM_COLORS.length]}
                   onClick={() => setSelectedSemester(semester)}
                 />
               </motion.div>
@@ -266,7 +332,7 @@ export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            <p className="text-slate-400 text-sm">
+            <p className="text-[#8a7568] text-sm">
               No se encontraron categorías para &quot;{searchTerm}&quot;
             </p>
           </motion.div>
@@ -275,56 +341,45 @@ export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
         )}
       </div>
 
-      {/* Footer */}
-      <motion.footer
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="mt-12 py-8 border-t border-slate-200 bg-slate-50"
+      {/* Footer — clean and warm */}
+      <footer
+        className="py-10 sm:py-12 border-t"
+        style={{ background: '#faf3eb', borderColor: '#ebe0d4' }}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div className="flex items-center gap-3">
               <Image
                 src="/logosombrarr.png"
                 alt="Logo"
                 width={32}
                 height={32}
-                className="w-8 h-8 object-contain opacity-60"
+                className="w-8 h-8 object-contain opacity-70"
               />
               <div>
-                <p className="text-sm font-semibold text-slate-700">El Blog del Ingeniero</p>
-                <p className="text-[10px] text-slate-400 mt-0.5 tracking-wide">
+                <p className="font-heading text-sm font-semibold text-[#3d2e22]">El Blog del Ingeniero</p>
+                <p className="text-[10px] text-[#8a7568] mt-0.5 tracking-wide">
                   Ing. Luis Pacosillo Ticona
                 </p>
               </div>
             </div>
-            <div className="flex-1 max-w-md">
-              <h4 className="text-sm font-bold text-slate-800 mb-2">Nuestra Visión</h4>
-              <p className="text-xs text-slate-500 leading-relaxed">
+
+            <div className="max-w-sm">
+              <p className="text-xs text-[#6b5c50] leading-relaxed">
                 Trabajamos por una facultad moderna, con recursos digitales accesibles para todos.
-                El Blog del Ingeniero es solo el comienzo de la transformación digital que propone el
-                <span className="font-bold text-emerald-600"> Ing. Luis Pacosillo Ticona</span>.
+                El Blog del Ingeniero es solo el comienzo de la transformación digital que propone el{' '}
+                <span className="font-semibold text-[#c05621]">Ing. Luis Pacosillo Ticona</span>.
               </p>
             </div>
-            <div className="flex gap-6">
-              <div className="text-center">
-                <p className="text-lg font-bold text-green-700">{semesters.length}</p>
-                <p className="text-[10px] text-slate-500 uppercase tracking-wider">Categorías</p>
-              </div>
-              <div className="text-center">
-                <p className="text-lg font-bold text-blue-700">∞</p>
-                <p className="text-[10px] text-slate-500 uppercase tracking-wider">Archivos</p>
-              </div>
-            </div>
           </div>
-          <div className="mt-4 pt-4 border-t border-slate-200 text-center">
-            <p className="text-[10px] text-slate-400 tracking-wide">
+
+          <div className="mt-8 pt-6 border-t border-[#ebe0d4] text-center">
+            <p className="text-[10px] text-[#b5a89c] tracking-wide">
               © {new Date().getFullYear()} Ing. Luis Pacosillo Ticona — Todos los derechos reservados
             </p>
           </div>
         </div>
-      </motion.footer>
+      </footer>
 
       {/* Folder Modal */}
       {selectedSemester && (
@@ -333,9 +388,12 @@ export function BibliotecaLayout({ semesters }: BibliotecaLayoutProps) {
           onClose={() => setSelectedSemester(null)}
           semesterId={selectedSemester.id}
           semesterName={selectedSemester.name}
-          semesterColor={COLORS[(selectedSemester.number - 1) % COLORS.length]}
+          semesterColor={WARM_COLORS[(selectedSemester.number - 1) % WARM_COLORS.length]}
         />
       )}
+
+      {/* Ingeniero Modal */}
+      <IngenieroModal isOpen={ingenieroModalOpen} onClose={() => setIngenieroModalOpen(false)} />
     </main>
   );
 }

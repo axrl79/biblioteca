@@ -29,7 +29,7 @@ const container = {
 };
 
 const item = {
-  hidden: { opacity: 0, x: -10 },
+  hidden: { opacity: 0, x: -8 },
   show: { opacity: 1, x: 0 },
 };
 
@@ -38,8 +38,8 @@ export function FileList({ files, onPreview, onDownload }: FileListProps) {
 
   return (
     <div className="space-y-3">
-      <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider px-1">
-        📄 Archivos ({files.length})
+      <p className="text-[11px] font-medium text-[#8a7568] uppercase tracking-[0.15em] px-1">
+        Archivos · {files.length}
       </p>
       <motion.div
         className="space-y-1"
@@ -53,27 +53,29 @@ export function FileList({ files, onPreview, onDownload }: FileListProps) {
             <motion.div
               key={file.id}
               variants={item}
-              className="group flex items-center gap-3 p-2.5 sm:p-3 rounded-xl hover:bg-slate-50 transition-all duration-200 border border-transparent hover:border-slate-200"
+              className="group flex items-center gap-3 p-3 sm:p-3.5 rounded-xl transition-all duration-200 border border-transparent hover:border-[#ebe0d4] hover:bg-[#fffaf5]"
             >
               {/* Icon */}
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-slate-100 flex items-center justify-center text-lg flex-shrink-0 group-hover:bg-white group-hover:shadow-sm transition-all">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center text-lg flex-shrink-0 transition-all"
+                style={{ background: '#f5ebe1' }}
+              >
                 {icon}
               </div>
 
               {/* Info */}
               <div className="flex-1 min-w-0">
-                <p className="text-[13px] sm:text-sm font-medium text-slate-800 truncate group-hover:text-slate-900">
+                <p className="text-[13px] sm:text-sm font-medium text-[#3d2e22] truncate group-hover:text-[#1a1108]">
                   {file.name}
                 </p>
                 {file.size && (
-                  <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5">
+                  <p className="text-[11px] text-[#b5a89c] mt-0.5">
                     {formatFileSize(file.size)}
                   </p>
                 )}
               </div>
 
-              {/* Actions */}
-              <div className="flex gap-1.5 flex-shrink-0 opacity-100 sm:opacity-70 group-hover:opacity-100 transition-opacity">
+              {/* Actions — always visible on mobile */}
+              <div className="flex gap-1 flex-shrink-0">
                 <Button
                   size="sm"
                   variant="ghost"
@@ -81,7 +83,7 @@ export function FileList({ files, onPreview, onDownload }: FileListProps) {
                     e.stopPropagation();
                     onPreview(file);
                   }}
-                  className="h-8 w-8 p-0 text-green-600 hover:text-green-700 hover:bg-green-50"
+                  className="h-9 w-9 p-0 rounded-lg text-[#c05621] hover:text-[#a0440a] hover:bg-[#f5ebe1] transition-colors"
                 >
                   <Eye className="h-4 w-4" />
                 </Button>
@@ -92,7 +94,7 @@ export function FileList({ files, onPreview, onDownload }: FileListProps) {
                     e.stopPropagation();
                     onDownload(file.id);
                   }}
-                  className="h-8 w-8 p-0 text-orange-500 hover:text-orange-600 hover:bg-orange-50"
+                  className="h-9 w-9 p-0 rounded-lg text-[#8a6e42] hover:text-[#6b5530] hover:bg-[#f5ebe1] transition-colors"
                 >
                   <Download className="h-4 w-4" />
                 </Button>

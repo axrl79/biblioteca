@@ -17,15 +17,6 @@ interface FolderGridProps {
   onFolderClick: (folder: DriveFile) => void;
 }
 
-const FOLDER_COLORS = [
-  { bg: 'bg-emerald-50', border: 'border-emerald-200', icon: 'text-emerald-600', hover: 'hover:border-emerald-400 hover:shadow-emerald-100' },
-  { bg: 'bg-blue-50', border: 'border-blue-200', icon: 'text-blue-600', hover: 'hover:border-blue-400 hover:shadow-blue-100' },
-  { bg: 'bg-violet-50', border: 'border-violet-200', icon: 'text-violet-600', hover: 'hover:border-violet-400 hover:shadow-violet-100' },
-  { bg: 'bg-amber-50', border: 'border-amber-200', icon: 'text-amber-600', hover: 'hover:border-amber-400 hover:shadow-amber-100' },
-  { bg: 'bg-rose-50', border: 'border-rose-200', icon: 'text-rose-600', hover: 'hover:border-rose-400 hover:shadow-rose-100' },
-  { bg: 'bg-cyan-50', border: 'border-cyan-200', icon: 'text-cyan-600', hover: 'hover:border-cyan-400 hover:shadow-cyan-100' },
-];
-
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -35,7 +26,7 @@ const container = {
 };
 
 const item = {
-  hidden: { opacity: 0, y: 12, scale: 0.95 },
+  hidden: { opacity: 0, y: 12, scale: 0.97 },
   show: { opacity: 1, y: 0, scale: 1 },
 };
 
@@ -44,34 +35,45 @@ export function FolderGrid({ folders, onFolderClick }: FolderGridProps) {
 
   return (
     <div className="space-y-3">
-      <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider px-1">
-        📁 Carpetas ({folders.length})
+      <p className="text-[11px] font-medium text-[#8a7568] uppercase tracking-[0.15em] px-1">
+        Carpetas · {folders.length}
       </p>
       <motion.div
-        className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3"
         variants={container}
         initial="hidden"
         animate="show"
       >
-        {folders.map((folder, index) => {
-          const color = FOLDER_COLORS[index % FOLDER_COLORS.length];
-          return (
-            <motion.button
-              key={folder.id}
-              variants={item}
-              onClick={() => onFolderClick(folder)}
-              className={`group relative flex flex-col items-start gap-2.5 p-3.5 sm:p-4 rounded-xl border ${color.bg} ${color.border} ${color.hover} transition-all duration-200 text-left hover:shadow-md active:scale-[0.97]`}
-              whileTap={{ scale: 0.97 }}
+        {folders.map((folder) => (
+          <motion.button
+            key={folder.id}
+            variants={item}
+            onClick={() => onFolderClick(folder)}
+            className="group relative flex items-center gap-3 p-3.5 sm:p-4 rounded-xl text-left transition-all duration-200 active:scale-[0.97]"
+            style={{
+              background: '#fffaf5',
+              border: '1px solid rgba(235, 224, 212, 0.6)',
+              boxShadow: '0 1px 4px rgba(61, 46, 34, 0.04)',
+            }}
+            whileTap={{ scale: 0.97 }}
+            whileHover={{
+              boxShadow: '0 4px 16px -4px rgba(61, 46, 34, 0.10)',
+            }}
+          >
+            <div
+              className="p-2 rounded-lg flex-shrink-0"
+              style={{ background: '#f5ebe1', color: '#c05621' }}
             >
-              <div className={`p-2 rounded-lg bg-white/80 shadow-sm ${color.icon}`}>
-                <Folder className="w-5 h-5" />
-              </div>
-              <p className="text-[13px] sm:text-sm font-semibold text-slate-800 leading-tight line-clamp-2 w-full">
-                {folder.name}
-              </p>
-            </motion.button>
-          );
-        })}
+              <Folder className="w-4 h-4 sm:w-5 sm:h-5" />
+            </div>
+            <p className="text-[13px] sm:text-sm font-medium text-[#3d2e22] leading-tight line-clamp-2 w-full">
+              {folder.name}
+            </p>
+            <svg className="w-4 h-4 flex-shrink-0 text-[#b5a89c] group-hover:text-[#8a7568] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </motion.button>
+        ))}
       </motion.div>
     </div>
   );

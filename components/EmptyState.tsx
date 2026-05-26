@@ -13,27 +13,26 @@ export function EmptyState({ type = 'folder', message }: EmptyStateProps) {
 
   return (
     <motion.div
-      className="flex flex-col items-center justify-center py-12 sm:py-16 px-4"
+      className="flex flex-col items-center justify-center py-14 sm:py-20 px-6"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.4 }}
     >
-      <motion.div
-        className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-slate-100 flex items-center justify-center mb-4"
-        animate={{ y: [0, -6, 0] }}
-        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+      <div
+        className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center mb-5"
+        style={{ background: '#f5ebe1' }}
       >
         {isSearch ? (
-          <Search className="w-8 h-8 sm:w-10 sm:h-10 text-slate-400" />
+          <Search className="w-7 h-7 sm:w-9 sm:h-9 text-[#b5a89c]" />
         ) : (
-          <FolderOpen className="w-8 h-8 sm:w-10 sm:h-10 text-slate-400" />
+          <FolderOpen className="w-7 h-7 sm:w-9 sm:h-9 text-[#b5a89c]" />
         )}
-      </motion.div>
-      <p className="text-sm sm:text-base font-medium text-slate-500 text-center">
+      </div>
+      <p className="text-sm sm:text-base font-medium text-[#6b5c50] text-center">
         {message || (isSearch ? 'No se encontraron resultados' : 'Esta carpeta está vacía')}
       </p>
-      <p className="text-xs text-slate-400 mt-1 text-center">
-        {isSearch ? 'Intenta con otro término de búsqueda' : 'No hay archivos ni carpetas aquí'}
+      <p className="text-xs text-[#b5a89c] mt-2 text-center max-w-xs">
+        {isSearch ? 'Intenta con otro término de búsqueda' : 'No hay archivos ni carpetas aquí por el momento'}
       </p>
     </motion.div>
   );
