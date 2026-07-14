@@ -1,0 +1,205 @@
+﻿Diagnose log at 2026-07-14T04:09:24Z
+
+AppPath: C:\Program Files\Git\mingw64\bin\git-credential-manager.exe
+InstallDir: C:\Program Files\Git\mingw64\bin\
+Version: 2.7.0+d1dd8a4ded75a2b1faae653157ac1699609442ad
+
+------------
+Diagnostic: Environment
+Skipped: False
+Success: True
+Exception: None
+Log:
+OSType: Windows
+OSVersion: 10.0 (build 26200)
+Reading environment variables... OK
+ Variables:
+SESSIONNAME=Console
+ProgramFiles(x86)=C:\Program Files (x86)
+MSYSTEM=MINGW64
+ProgramW6432=C:\Program Files
+PROCESSOR_IDENTIFIER=AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD
+CONDA_PREFIX=C:\Users\axelu\miniconda3
+VBOX_MSI_INSTALL_PATH=C:\Program Files\Oracle\VirtualBox\
+TMP=C:\Users\axelu\AppData\Local\Temp
+PROCESSOR_ARCHITECTURE=AMD64
+VSCODE_GIT_ASKPASS_MAIN=c:\Users\axelu\AppData\Roaming\Code\User\globalStorage\vscode.git\askpass\70789581cae28aa7\askpass-main.js
+Path=C:/Program Files/Git/mingw64/libexec/git-core;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\axelu\bin;C:\Users\axelu\miniconda3;C:\Users\axelu\miniconda3\Library\mingw-w64\bin;C:\Users\axelu\miniconda3\Library\usr\bin;C:\Users\axelu\miniconda3\Library\bin;C:\Users\axelu\miniconda3\Scripts;C:\Users\axelu\miniconda3\bin;C:\Users\axelu\miniconda3\condabin;c:\Users\axelu\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\axelu\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Docker\Docker\resources\bin;C:\Users\axelu\AppData\Local\nvm;C:\nvm4w\nodejs;C:\Program Files\Git\cmd;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\dev\flutter\bin;C:\Program Files\Tesseract-OCR;c:\Users\axelu\AppData\Local\Programs\Trae\bin;C:\Users\axelu\AppData\Local\Microsoft\WindowsApps;C:\Users\axelu\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\axelu\AppData\Local\Programs\Antigravity\bin;C:\Users\axelu\AppData\Roaming\npm;C:\Users\axelu\AppData\Local\nvm;C:\nvm4w\nodejs;C:\ffmpeg\bin;C:\dev\flutter\bin;.
+_CONDA_EXE=C:\Users\axelu\miniconda3\Scripts\conda.exe
+SSL_CERT_FILE=C:\Users\axelu\miniconda3\Library\ssl\cacert.pem
+VSCODE_GIT_IPC_HANDLE=\\.\pipe\vscode-git-ad600daec2-sock
+CONDA_SHLVL=1
+PROCESSOR_REVISION=7401
+TMPDIR=C:\Users\axelu\AppData\Local\Temp
+TEMP=C:\Users\axelu\AppData\Local\Temp
+USERPROFILE=C:\Users\axelu
+LOGONSERVER=\\AXLR79
+TERM=xterm-256color
+USERNAME=axelu
+SystemRoot=C:\WINDOWS
+CHROME_CRASHPAD_PIPE_NAME=\\.\pipe\crashpad_13656_SUBXEESAURJKRSKI
+GIT_EXEC_PATH=C:/Program Files/Git/mingw64/libexec/git-core
+PLINK_PROTOCOL=ssh
+USERDOMAIN_ROAMINGPROFILE=AXLR79
+CommonProgramFiles=C:\Program Files\Common Files
+CONDA_PROMPT_MODIFIER=(base) 
+VSCODE_PYTHON_AUTOACTIVATE_GUARD=1
+EFC_23132_4126798990=1
+PYTHON_BASIC_REPL=1
+ProgramData=C:\ProgramData
+LANG=en_US.UTF-8
+GIT_ASKPASS=c:\Users\axelu\AppData\Roaming\Code\User\globalStorage\vscode.git\askpass\70789581cae28aa7\askpass.sh
+HOMEPATH=\Users\axelu
+_CONDA_ROOT=C:\Users\axelu\miniconda3
+COMPUTERNAME=AXLR79
+PYTHONSTARTUP=c:\Users\axelu\AppData\Roaming\Code\User\workspaceStorage\1ca0ce82930bea844cf34bc9a55092f8\ms-python.python\pythonrc.py
+VSCODE_INJECTION=1
+ALLUSERSPROFILE=C:\ProgramData
+CommonProgramW6432=C:\Program Files\Common Files
+COPILOT_DEBUG_NONCE=be5ebaefd3cee7d2e03db30a79e3aa79
+CONDA_PYTHON_EXE=C:\Users\axelu\miniconda3\python.exe
+__CONDA_OPENSLL_CERT_FILE_SET=1
+EFC_23132_1592913036=1
+NVM_HOME=C:\Users\axelu\AppData\Local\nvm
+DriverData=C:\Windows\System32\Drivers\DriverData
+HOMEDRIVE=C:
+CONDA_DEFAULT_ENV=base
+windir=C:\WINDOWS
+GIT_TRACE2_PARENT_SID=2ac347a1-08d8-4be7-a251-9028f0d3ef70
+SystemDrive=C:
+NUMBER_OF_PROCESSORS=16
+OS=Windows_NT
+ProgramFiles=C:\Program Files
+ComSpec=C:\WINDOWS\system32\cmd.exe
+CONDA_EXE=C:\Users\axelu\miniconda3\Scripts\conda.exe
+PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL
+HOME=C:\Users\axelu
+PSModulePath=C:\Users\axelu\OneDrive\Documentos\WindowsPowerShell\Modules;C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+PROMPT=$P$G
+NVM_SYMLINK=C:\nvm4w\nodejs
+APPDATA=C:\Users\axelu\AppData\Roaming
+USERDOMAIN=AXLR79
+PROCESSOR_LEVEL=25
+LOCALAPPDATA=C:\Users\axelu\AppData\Local
+VSCODE_GIT_ASKPASS_NODE=C:\Users\axelu\AppData\Local\Programs\Microsoft VS Code\Code.exe
+TERM_PROGRAM_VERSION=1.127.0
+CommonProgramFiles(x86)=C:\Program Files (x86)\Common Files
+COLORTERM=truecolor
+PUBLIC=C:\Users\Public
+TERM_PROGRAM=vscode
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=
+
+
+------------
+Diagnostic: File system
+Skipped: False
+Success: True
+Exception: None
+Log:
+Temporary directory is 'C:\Users\axelu\AppData\Local\Temp\'...
+Checking basic file I/O...
+Writing to temporary file 'C:\Users\axelu\AppData\Local\Temp\1d7443cf88f536891389fef2'... OK
+Reading from temporary file 'C:\Users\axelu\AppData\Local\Temp\1d7443cf88f536891389fef2'... OK
+Deleting temporary file 'C:\Users\axelu\AppData\Local\Temp\1d7443cf88f536891389fef2'... OK
+Testing IFileSystem instance...
+UserHomePath: C:\Users\axelu
+UserDataDirectoryPath: C:\Users\axelu\.gcm
+GetCurrentDirectory(): C:\Users\axelu\Desktop\evolution\biblioteca
+
+------------
+Diagnostic: Networking
+Skipped: False
+Success: True
+Exception: None
+Log:
+Checking networking and HTTP stack...
+Creating HTTP client... OK
+IsNetworkAvailable: True
+Sending HEAD request to http://example.com...Sending HEAD request to https://example.com... OK
+ OK
+Acquiring free TCP port... OK
+Testing local HTTP loopback connections...
+Creating new HTTP listener for http://localhost:52661/... OK
+Waiting for loopback connection... OK
+Writing response... OK
+Waiting for response data... OK
+Loopback connection data OK
+
+------------
+Diagnostic: Git
+Skipped: False
+Success: True
+Exception: None
+Log:
+Getting Git version... OK
+Git version is '2.53.0.windows.1'
+Locating current repository...Git repository at 'C:/Users/axelu/Desktop/evolution/biblioteca/.git'
+ OK
+Listing all Git configuration... OK
+Git configuration:
+file:C:/Program Files/Git/etc/gitconfig	diff.astextplain.textconv=astextplain
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.clean=git-lfs clean -- %f
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.smudge=git-lfs smudge -- %f
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.process=git-lfs filter-process
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.required=true
+file:C:/Program Files/Git/etc/gitconfig	http.sslbackend=schannel
+file:C:/Program Files/Git/etc/gitconfig	core.autocrlf=true
+file:C:/Program Files/Git/etc/gitconfig	core.fscache=true
+file:C:/Program Files/Git/etc/gitconfig	core.symlinks=false
+file:C:/Program Files/Git/etc/gitconfig	pull.rebase=false
+file:C:/Program Files/Git/etc/gitconfig	credential.helper=manager
+file:C:/Program Files/Git/etc/gitconfig	credential.https://dev.azure.com.usehttppath=true
+file:C:/Program Files/Git/etc/gitconfig	init.defaultbranch=master
+file:C:/Users/axelu/.gitconfig	user.name=axrl79
+file:C:/Users/axelu/.gitconfig	user.email=lpze.axelcristian.uria.fa@unifranz.edu.bo
+file:C:/Users/axelu/.gitconfig	safe.directory=*
+file:.git/config	core.repositoryformatversion=0
+file:.git/config	core.filemode=false
+file:.git/config	core.bare=false
+file:.git/config	core.logallrefupdates=true
+file:.git/config	core.symlinks=false
+file:.git/config	core.ignorecase=true
+file:.git/config	remote.upstream.url=https://github.com/axrl79/biblioteca.git
+file:.git/config	remote.upstream.fetch=+refs/heads/*:refs/remotes/upstream/*
+file:.git/config	branch.main.remote=origin
+file:.git/config	branch.main.vscode-merge-base=origin/main
+file:.git/config	branch.main.merge=refs/heads/main
+file:.git/config	remote.origin.url=https://github.com/lpzejosearnoldcorpusve-a11y/biblioteca.git
+file:.git/config	remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+
+
+------------
+Diagnostic: Credential storage
+Skipped: False
+Success: True
+Exception: None
+Log:
+ICredentialStore instance is of type: CredentialStore
+Writing test credential... OK
+Reading test credential... OK
+Deleting test credential... OK
+
+------------
+Diagnostic: Microsoft authentication (AAD/MSA)
+Skipped: False
+Success: True
+Exception: None
+Log:
+Broker is not enabled.
+Flow type is: Auto
+Gathering MSAL token cache data... OK
+CacheDirectory: C:\Users\axelu\AppData\Local\.IdentityService
+CacheFileName: msal.cache
+CacheFilePath: C:\Users\axelu\AppData\Local\.IdentityService\msal.cache
+Creating cache helper... OK
+Verifying MSAL token cache persistence... OK
+
+------------
+Diagnostic: GitHub API
+Skipped: False
+Success: True
+Exception: None
+Log:
+Using 'https://github.com/' as API target.
+Querying '/meta' endpoint... OK
+
