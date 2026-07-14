@@ -179,7 +179,7 @@ export function IngenieroModal({ isOpen, onClose }: IngenieroModalProps) {
   const isMobile = useIsMobile();
 
   const content = (
-    <div className="flex flex-col h-full">
+    <div className="flex h-full min-h-0 flex-col">
       {/* Tabs */}
       <div className="flex gap-0 border-b border-[#ebe0d4] px-5 sm:px-6 pt-4">
         {(
@@ -203,8 +203,8 @@ export function IngenieroModal({ isOpen, onClose }: IngenieroModalProps) {
       </div>
 
       {/* Content */}
-      <ScrollArea className="flex-1 px-5 sm:px-6 py-4">
-        <div className="pr-4">
+      <ScrollArea className="flex-1 min-h-0 px-5 sm:px-6 py-4">
+        <div className="pr-4 pb-4">
           {activeTab === 'bio' ? <IngenieroBio /> : <SemestresInfo />}
         </div>
       </ScrollArea>
@@ -214,10 +214,10 @@ export function IngenieroModal({ isOpen, onClose }: IngenieroModalProps) {
   if (isMobile) {
     return (
       <Drawer open={isOpen} onOpenChange={onClose}>
-        <DrawerContent className="bg-white max-h-[85vh]">
+        <DrawerContent className="flex h-[85vh] max-h-[85vh] flex-col overflow-hidden bg-white">
           <DrawerTitle className="sr-only">Ingeniero Luis Pacosillo Ticona</DrawerTitle>
           <DrawerDescription className="sr-only">
-            Biografía y plan de estudios del Ingeniero Civil Geotécnico
+            Biografía y plan de estudios del Ingeniero Civil Geología-geofisica-geotecnia
           </DrawerDescription>
           {content}
         </DrawerContent>
@@ -227,10 +227,10 @@ export function IngenieroModal({ isOpen, onClose }: IngenieroModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[85vh] overflow-hidden p-0 bg-white border border-[#ebe0d4]">
+      <DialogContent className="flex max-w-2xl h-[85vh] max-h-[85vh] flex-col overflow-hidden p-0 bg-white border border-[#ebe0d4]">
         <DialogTitle className="sr-only">Ingeniero Luis Pacosillo Ticona</DialogTitle>
         <DialogDescription className="sr-only">
-          Biografía y plan de estudios del Ingeniero Civil Geotécnico
+          Biografía y plan de estudios del Ingeniero Civil Geología-geofisica-geotecnia
         </DialogDescription>
         <button
           onClick={onClose}

@@ -386,9 +386,9 @@ export function BibliotecaLayout({ semesters, semesterDetails }: BibliotecaLayou
 
             <div className="max-w-sm">
               <p className="text-xs text-[#6b5c50] leading-relaxed">
-                Trabajamos por una facultad moderna, con recursos digitales accesibles para todos.
-                El Blog del Ingeniero es solo el comienzo de la transformación digital que propone el{' '}
-                <span className="font-semibold text-[#c05621]">Ing. Luis Pacosillo Ticona</span>.
+                El Blog del Ingeniero es un espacio digital para la comunidad académica. Buscamos
+                compartir conocimiento y recursos accesibles que aporten al fortalecimiento de una
+                facultad moderna e innovadora.
               </p>
             </div>
           </div>
@@ -404,13 +404,13 @@ export function BibliotecaLayout({ semesters, semesterDetails }: BibliotecaLayou
       {/* Semestres View Modal */}
       {isMobile ? (
         <Drawer open={showSemestersView} onOpenChange={setShowSemestersView}>
-          <DrawerContent className="bg-white max-h-[85vh]">
+          <DrawerContent className="flex h-[85vh] max-h-[85vh] flex-col overflow-hidden bg-white">
             <DrawerTitle className="px-6 pt-4">Semestres</DrawerTitle>
             <DrawerDescription className="px-6 text-xs">
               Selecciona un semestre para explorar su contenido
             </DrawerDescription>
-            <ScrollArea className="flex-1 px-6 py-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pr-4">
+            <ScrollArea className="flex-1 min-h-0 px-6 py-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pr-4 pb-4">
                 {semesterDetails.map((semester, idx) => (
                   <motion.button
                     key={semester.id}
@@ -436,7 +436,7 @@ export function BibliotecaLayout({ semesters, semesterDetails }: BibliotecaLayou
         </Drawer>
       ) : (
         <Dialog open={showSemestersView} onOpenChange={setShowSemestersView}>
-          <DialogContent className="max-w-2xl max-h-[85vh] overflow-hidden p-0 bg-white border border-[#ebe0d4]">
+          <DialogContent className="flex h-[85vh] max-h-[85vh] flex-col overflow-hidden p-0 bg-white border border-[#ebe0d4]">
             <DialogTitle className="sr-only">Semestres</DialogTitle>
             <DialogDescription className="sr-only">
               Selecciona un semestre para explorar su contenido
@@ -451,8 +451,8 @@ export function BibliotecaLayout({ semesters, semesterDetails }: BibliotecaLayou
               <h2 className="text-2xl font-bold text-[#3d2e22]">Selecciona un Semestre</h2>
               <p className="text-sm text-[#8a7568] mt-1">9 semestres disponibles en la carrera</p>
             </div>
-            <ScrollArea className="flex-1 px-6 py-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pr-4">
+            <ScrollArea className="flex-1 min-h-0 px-6 py-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pr-4 pb-4">
                 {semesterDetails.map((semester, idx) => (
                   <motion.button
                     key={semester.id}
