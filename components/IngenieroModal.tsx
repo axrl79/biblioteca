@@ -75,9 +75,14 @@ function IngenieroBio() {
           <h3 className="text-2xl sm:text-3xl font-bold text-[#3d2e22]">
             Ing. Luis Pacosillo Ticona
           </h3>
-          <p className="text-[#c05621] text-sm font-semibold mt-1 uppercase tracking-wide">
-            Ingeniero Civil Geotécnico
-          </p>
+          <div className="mt-3 inline-flex flex-col items-center rounded-full border border-[#eadbcc] bg-[#fff8f2] px-4 py-2 shadow-sm">
+            <span className="text-[#c05621] text-[11px] sm:text-xs font-semibold uppercase tracking-[0.25em]">
+              Ingeniero Civil
+            </span>
+            <span className="mt-1 text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.2em] text-[#8a7568]">
+              Geología • Geofísica • Geotecnia
+            </span>
+          </div>
         </div>
 
         <div className="pt-2 space-y-2 text-[#6b5c50]">

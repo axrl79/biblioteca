@@ -185,9 +185,14 @@ export function BibliotecaLayout({ semesters, semesterDetails }: BibliotecaLayou
                       <h3 className="font-heading text-lg font-semibold text-[#2d1f14]">
                         Ing. Luis Pacosillo Ticona
                       </h3>
-                      <p className="text-[#c05621] font-medium text-xs mt-0.5">
-                        Ingeniero Civil Geotécnico
-                      </p>
+                      <div className="mt-2 inline-flex flex-col rounded-full border border-[#eadbcc] bg-[#fff8f2] px-3 py-1.5 shadow-sm">
+                        <span className="text-[#c05621] text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em]">
+                          Ingeniero Civil
+                        </span>
+                        <span className="mt-0.5 text-[9px] sm:text-[10px] font-medium uppercase tracking-[0.2em] text-[#8a7568]">
+                          Geología • Geofísica • Geotecnia
+                        </span>
+                      </div>
                     </div>
                   </div>
 
